@@ -1,0 +1,4 @@
+interface:
+  display_name: "Novel Writer"
+  short_description: "Plan, draft, audit, and maintain serial fiction"
+  default_prompt: "Use $novel-writer to plan, draft, review, and maintain a serialized novel with evidence-backed retention and continuity checks."
