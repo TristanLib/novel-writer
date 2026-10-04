@@ -68,7 +68,9 @@ For new or substantially revised prose:
 6. Run the formal severity audit for canon, causality, character, capability,
    evidence, domain, mystery, hook, and meta-language risks.
 7. Apply a human-texture pass and prose polish without silently changing the
-   story contract.
+   story contract. For Chinese prose, inspect paragraph function, sentence
+   focus, referent handoff, viewpoint-filtered detail, and read-aloud rhythm;
+   do not impose universal punctuation or rhetorical-template bans.
 8. If any prose changes, invalidate the prior score and reviews. Repeat the
    retention gate, reader-forward pass, and formal audit on the final version.
 9. Update durable project state only after all required gates pass
@@ -117,5 +119,28 @@ Run the meta-language scanner on publishable manuscript files:
 python skills/novel-writer/scripts/scan_prose_meta.py drafts/
 ```
 
-Both scripts report candidates only. Inspect every finding in context; a
-diegetic use may be valid.
+Run the warning-only Chinese prose-shape auditor when prose feels mechanically
+regular, syntactically dense, or over-explained:
+
+```bash
+python skills/novel-writer/scripts/audit_prose_shape.py \
+  --names names.txt path/to/chapter.md
+```
+
+`--names` takes a plain list of character names so that `林川道：“……”` counts
+as dialogue. Pass a whole `drafts/` directory to get per-10k rates and the
+number of chapters hit for each negation family. To find a book's own repeated
+phrases, compare its narration against a baseline corpus:
+
+```bash
+python skills/novel-writer/scripts/discover_tics.py \
+  --target drafts/ --baseline path/to/baseline/ --exclude names.txt > tics.tsv
+```
+
+Prefer a human-written baseline. Against the author's other books it only finds
+book-specific habits. Read the `under` and `probe` rows before stripping
+similes or questions any further.
+
+These scripts report candidates only. Inspect every finding in context; a
+diegetic use, deliberate rhythm, poem line, dialogue beat, or repeated character
+focus may be valid. Never optimize prose for a scanner.
